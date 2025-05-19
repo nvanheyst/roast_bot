@@ -10,7 +10,7 @@ tmux new-session -d -s $SESSION -n bringup
 #
 
 # Pane 0: pan-tilt bringup
-tmux send-keys -t $SESSION:0.0 'ros2 launch pan_tilt_bringup panTilt_bringup.launch.py' C-m
+tmux send-keys -t $SESSION:0.0 'cd' C-m
 
 # Split vertically (creates pane 1 on the right)
 tmux split-window -h -t $SESSION:0.0
@@ -37,7 +37,7 @@ tmux send-keys -t $SESSION:1.1 'source ~/venvs/zed-env/bin/activate && cd ~/roas
 tmux new-window -t $SESSION:2 -n scripts
 
 # Pane 0: scripts
-tmux send-keys -t $SESSION:2.0 'cd ~/cdn_ai_ws/scripts/test' C-m
+tmux send-keys -t $SESSION:2.0 'cd' C-m
 
 #
 # === Window 4: Scripts ===
