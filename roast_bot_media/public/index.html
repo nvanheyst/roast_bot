@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roast-Bot Session Logger</title>
+
+  <style>
+    :root {
+      --cp-yellow: #FFCB00;
+      --cp-dark  : #111;
+    }
+
+    body {
+      background: var(--cp-dark);
+      color: #EEE;
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 20px auto;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    h2   {color: var(--cp-yellow); margin: 0 0 12px;}
+    label{display:block;margin-top:12px;color:#CCC;}
+
+    input,select {
+      width: 100%;
+      padding: 6px;
+      border: 1px solid #555;
+      border-radius: 4px;
+      background: #222;
+      color: #eee;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background: var(--cp-yellow);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      filter: brightness(1.1);
+    }
+
+    #preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    .image-wrapper {
+      width: 220px;
+      height: 300px;
+      background: #000;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .image-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(255, 203, 0, 0.35);
+    }
+
+    .image-wrapper.caricature {
+      height: auto;
+      background: none;
+    }
+
+    .image-wrapper.caricature img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .image-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    #lightboxOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #lightboxOverlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 6px;
+      box-shadow: 0 0 20px rgba(255, 203, 0, 0.25);
+    }
+
+    #lightboxOverlay:active {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="/logo2.png" alt="Clearpath logo"
+       style="max-height:70px;display:block;margin:0 auto 8px;">
+
+  <h2>Register Your Session</h2>
+
+  <form id="userForm">
+    <label>First Name <input name="firstName" required></label>
+    <label>Last Name  <input name="lastName"  required></label>
+    <label>Company    <input name="company"   required></label>
+    <label>Position   <input name="position"  required></label>
+    <label>Email      <input name="email" type="email" required></label>
+
+    <label>Session
+      <select name="sessionName" id="sessionSelect"></select>
+    </label>
+
+    <button type="submit">Save</button>
+  </form>
+
+  <div id="preview"></div>
+  <p id="msg"></p>
+
+  <div id="lightboxOverlay"><img id="lightboxImage" src=""></div>
+
+  <script>
+    const form     = document.getElementById('userForm');
+    const select   = document.getElementById('sessionSelect');
+    const preview  = document.getElementById('preview');
+    const msg      = document.getElementById('msg');
+    const lightbox = document.getElementById('lightboxOverlay');
+    const lightImg = document.getElementById('lightboxImage');
+
+    async function loadSessions(){
+      const names = await (await fetch('/api/sessions')).json();
+      select.innerHTML = '';
+      names.forEach((n, i) => {
+        const o = document.createElement('option');
+        o.value = o.textContent = n;
+        if (i === 0) o.selected = true;
+        select.appendChild(o);
+      });
+      loadPreview(select.value);
+    }
+
+    async function loadPreview(name){
+      const imgs = await (await fetch(`/api/session/${name}/images`)).json();
+      preview.querySelectorAll('.image-wrapper').forEach(e => e.remove());
+
+      ['original', 'caricature', 'roast']
+        .map(pfx => imgs.find(src => src.includes(pfx)))
+        .filter(Boolean)
+        .forEach(src => {
+          const wrap = document.createElement('div');
+          wrap.className = 'image-wrapper' + (src.includes('caricature') ? ' caricature' : '');
+          const img = new Image();
+          img.src = src;
+          img.alt = src;
+          img.addEventListener('click', () => {
+            lightImg.src = src;
+            lightbox.style.display = 'flex';
+          });
+          wrap.appendChild(img);
+          preview.appendChild(wrap);
+        });
+    }
+
+    lightbox.addEventListener('click', () => lightbox.style.display = 'none');
+    select.addEventListener('change', () => loadPreview(select.value));
+    window.addEventListener('load', loadSessions);
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.sessionName = select.value;
+      const res = await fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      msg.textContent = json.ok
+        ? `Saved! (Session: ${json.sessionName})`
+        : 'Error saving data.';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
