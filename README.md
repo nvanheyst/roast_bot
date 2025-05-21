@@ -8,9 +8,12 @@ The repo includes two main nodes:
 1. A custom ROS2 node built from the Zed Body Tracking API: https://www.stereolabs.com/docs/body-tracking/using-body-tracking. The user needs to hold one hand above their head for 5 seconds to start the image capture countdown. There is support to track more than one person with their hand above their head.
 2. A second custom ROS2 node that makes two ChatGPT API calls (cloud). The first call roasts the users in the cropped image using gpt-4.1. The second call generates a caricature from the cropped image using gpt-image-1.
 
-Here is the hardware demo that was built for this:
+Here is the hardware demo that was built for this and an example output
 
 <img src="https://github.com/user-attachments/assets/4aa42e11-e4ed-4632-9918-bdbbcef20220" style="width:200px;height:auto;"/>
+
+![Caricature](roast_bot_media/session_20250513_160130/caricature.jpg)
+
 
 
 ### Usage
