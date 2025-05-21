@@ -9,13 +9,12 @@ The repo includes two main nodes:
 2. A second custom ROS2 node that makes two ChatGPT API calls (cloud). The first call roasts the users in the cropped image using gpt-4.1. The second call generates a caricature from the cropped image using gpt-image-1.
 
 Here is the hardware demo that was built for this:
-![20250514_171648](https://github.com/user-attachments/assets/4aa42e11-e4ed-4632-9918-bdbbcef20220)
+<img src="https://github.com/user-attachments/assets/4aa42e11-e4ed-4632-9918-bdbbcef20220" style="width:200px;height:auto;"/>
 
 
 **Usage**
 
-$cd ~/roast_bot_v3
-$./start_dev_tmux.sh
+    $cd ~/roast_bot_v3 && ./start_dev_tmux.sh
 
 Foxglove
 Open Foxglove Desktop App and a Websocket connection to ws://hostname:8765
