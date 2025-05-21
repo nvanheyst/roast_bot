@@ -1,6 +1,6 @@
 # roast_bot
 
-**Description**
+### Description
 
 This is a demo to showcase Jackal as a AI research platform as well as the features of the Zed 2 / Zed X cameras. It was built for the 2025 Canadian AI Conference in Calgary.
 
@@ -12,20 +12,20 @@ Here is the hardware demo that was built for this:
 <img src="https://github.com/user-attachments/assets/4aa42e11-e4ed-4632-9918-bdbbcef20220" style="width:200px;height:auto;"/>
 
 
-**Usage**
+### Usage
 
     $cd ~/roast_bot_v3 && ./start_dev_tmux.sh
 
-Foxglove
+**Foxglove**
 Open Foxglove Desktop App and a Websocket connection to ws://hostname:8765
 Open the template saved in the main directory of this repo
 
-Roast Logger
+**Roast Logger**
 To save information on the roast session use the roast_logger web page: http://hostname:3000
 Sessions are saved to the roast_media folder, data from the web page logger is saved to data.csv
 
 
-**Installation**
+### Installation
 
 Steps if you want to install exactly as is
 
