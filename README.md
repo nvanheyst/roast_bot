@@ -48,4 +48,15 @@ Steps if you want to install exactly as is
 5. Install openai python library. You could add this to the zed-env, but a small change to the start up script would be required
 6. Install node-js if not already installed
 7. Add Open API key to the roast node
-8. If the roast_bot_v3 node is in the home directory you should be able to run the start script with the instruction above. 
+8. If the roast_bot_v3 node is in the home directory you should be able to run the start script with the instruction above.
+
+### Previous Versions
+
+There were a number of iterations on this. One previous version included face detection with landmarking, tracking with the PTU to follow the closest face and an emotion detector.
+
+
+It was also brought to a mining conference with a configuration that included two cameras and a mapping payload as well:
+
+
+
+
