@@ -15,6 +15,7 @@ Here is the hardware demo that was built for this and an example output
 <img src="https://github.com/user-attachments/assets/4aa42e11-e4ed-4632-9918-bdbbcef20220" style="width:200px;height:auto;"/>
 <img src="roast_bot_media/session_20250513_160130/caricature.jpg" style="width:200px;height:auto;"/>
 <img src="roast_bot_media/session_20250513_160130/roast.jpg" style="width:400px;height:auto;"/>
+<img src="https://github.com/user-attachments/assets/82ca2d11-2f92-465e-a6a3-4fe919895bf3" style="width:400px;height:auto;"/>
 
 
 ### Usage
