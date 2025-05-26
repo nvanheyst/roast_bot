@@ -54,10 +54,10 @@ Steps if you want to install exactly as is
 
 There were a number of iterations on this. One previous version included face detection with landmarking, tracking with the PTU to follow the closest face and an emotion detector.
 
-<img src="roast_bot/blob/main/images/face_tracking.png" style="width:500px;height:auto;"/>
+<img src="images/face_tracking.png" style="width:500px;height:auto;"/>
 
 It was also brought to a mining conference with a configuration that included two cameras and a mapping payload as well:
 
-<img src="roast_bot/blob/main/images/mining_conference.jpg" style="width:500px;height:auto;"/>
+<img src="images/mining_conference.jpg" style="width:500px;height:auto;"/>
 
 
